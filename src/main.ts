@@ -21,8 +21,8 @@ Sentry.init({
   integrations: [
     new Sentry.Replay({
       // Additional SDK configuration goes in here, for example:
-      maskAllText: true,
-      blockAllMedia: true,
+      //   maskAllText: true,
+      // blockAllMedia: true,
     }),
   ],
 });
