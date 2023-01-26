@@ -4,20 +4,26 @@ import * as Sentry from '@sentry/vue';
 import './style.css';
 import App from './App.vue';
 
+const app = createApp(App);
+
 Sentry.init({
-  app: App,
   dsn: 'https://6f02d883eee44050b7a88a0e1ca26cb7@o4504570864271360.ingest.sentry.io/4504570918469632',
+
+  // This sets the sample rate to be 10%. You may want this to be 100% while
+  // in development and sample at a lower rate in production
+  replaysSessionSampleRate: 0.1,
+
+  // If the entire session is not sampled, use the below sample rate to sample
+  // sessions when an error occurs.
+  replaysOnErrorSampleRate: 1.0,
+
   integrations: [
-    new Sentry.Replay(),
-    // new BrowserTracing({
-    //   routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-    //   tracePropagationTargets: ['localhost', 'my-site-url.com', /^\//],
-    // }),
+    new Sentry.Replay({
+      // Additional SDK configuration goes in here, for example:
+      maskAllText: true,
+      blockAllMedia: true,
+    }),
   ],
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
 });
 
-createApp(App).mount('#app');
+app.mount('#app');
