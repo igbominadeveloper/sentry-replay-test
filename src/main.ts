@@ -7,6 +7,7 @@ import App from './App.vue';
 const app = createApp(App);
 
 Sentry.init({
+  app,
   dsn: 'https://6f02d883eee44050b7a88a0e1ca26cb7@o4504570864271360.ingest.sentry.io/4504570918469632',
 
   // This sets the sample rate to be 10%. You may want this to be 100% while
